@@ -1,8 +1,10 @@
 package:
-  name: my-purescript-template
-  description: Stuff I like to not copy paste whenever I start a new project. Not a real package.
+  name: typelevel-interop
+  description: Basic conversions/interfacing between types from Haskell-ported `purescript-typelevel` and builtin Prim/Prelude
   dependencies:
     - prelude: ">=6.0.2 <7.0.0"
+    - typelevel: ">=6.0.0 <7.0.0"
+    - typelevel-prelude: ">=7.0.0 <8.0.0"
   test:
     main: Test.Main
     dependencies:

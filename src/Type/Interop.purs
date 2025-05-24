@@ -1,0 +1,61 @@
+module Type.Interop
+  ( class NatInt
+  , class DigitInt
+  ) where
+
+import Data.Typelevel.Num.Reps
+  ( D0, D1, D2, D3, D4
+  , D5, D6, D7, D8, D9
+  , type (:*)
+  )
+
+import Data.Typelevel.Num.Sets (class Nat)
+
+import Data.Reflectable
+  ( class Reflectable
+  , reflectType
+  )
+
+import Prim.Int
+  ( class Add
+  , class Mul
+  , class Compare
+  )
+
+import Prim.Ordering (LT)
+
+-- | A sealed bijection between `typelevel` `Nat`s and nonnegative `Int`s.
+
+class NatInt :: Type -> Int -> Constraint
+class (Nat nat, Compare (-1) int LT) <= NatInt nat int
+  | nat -> int, int -> nat
+
+instance
+  ( NatInt high high'
+  , DigitInt ones ones'
+  , Mul high' 10 prod
+  , Add prod ones' sum
+  ) => NatInt (high :* ones) sum
+else
+instance DigitInt digit int => NatInt digit int
+
+-- | Helper class for single digit representations.
+
+class DigitInt :: Type -> Int -> Constraint
+class
+  ( Nat nat
+  , Compare (-1) int LT
+  , Compare int 10 LT
+  ) <= DigitInt nat int
+  | nat -> int, int -> nat
+
+instance DigitInt D0 0 else
+instance DigitInt D1 1 else
+instance DigitInt D2 2 else
+instance DigitInt D3 3 else
+instance DigitInt D4 4 else
+instance DigitInt D5 5 else
+instance DigitInt D6 6 else
+instance DigitInt D7 7 else
+instance DigitInt D8 8 else
+instance DigitInt D9 9
