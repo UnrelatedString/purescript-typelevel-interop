@@ -12,11 +12,6 @@ import Data.Typelevel.Num.Reps
   , type (:*)
   )
 
-import Data.Reflectable
-  ( class Reflectable
-  , reflectType
-  )
-
 import Prim.Int
   ( class Add
   , class Mul
