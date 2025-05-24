@@ -15,11 +15,11 @@ import Data.Reflectable (reflectType, reifyType)
 import Data.Typelevel.Num.Sets (class Nat, toInt', reifyInt)
 import Type.Proxy (Proxy(..))
 
--- reifiedNatInt :: Int -> Int
--- reifiedNatInt n = reifyInt n r
---   where
---   r :: forall n.
---   r _ = reflectType (Proxy @n)
+reifiedNatInt :: Int -> Int
+reifiedNatInt n = reifyInt n r
+  where
+  r :: forall n n'. NatInt n n' => n -> Int
+  r _ = reflectType (Proxy @n')
 
 -- reifiedIntNat :: Int -> Int
 -- reifiedIntNat n = reifyType n (\(_ :: Proxy n) -> toInt' (Proxy @n))
