@@ -9,8 +9,6 @@ import Data.Typelevel.Num.Reps
   , type (:*)
   )
 
-import Data.Typelevel.Num.Sets (class Nat)
-
 import Data.Reflectable
   ( class Reflectable
   , reflectType
@@ -19,7 +17,6 @@ import Data.Reflectable
 import Prim.Int
   ( class Add
   , class Mul
-  , class Compare
   )
 
 import Prim.Ordering (LT)
