@@ -12,6 +12,8 @@ import Data.Typelevel.Num.Reps
   , type (:*)
   )
 
+import Data.Typelevel.Num.Sets (class Nat, class Pos)
+
 import Prim.Int
   ( class Add
   , class Mul
@@ -22,11 +24,12 @@ import Prim.Boolean as Boolean
 -- | A sealed bijection between `typelevel` `Nat`s and nonnegative `Int`s.
 
 class NatInt :: Type -> Int -> Constraint
-class NatInt nat int
+class Nat nat <= NatInt nat int
   | nat -> int, int -> nat
 
 instance
   ( NatInt high high'
+  , Pos high
   , DigitInt ones ones'
   , Mul high' 10 prod
   , Add prod ones' sum
@@ -37,7 +40,7 @@ instance DigitInt digit int => NatInt digit int
 -- | Helper class for single digit representations.
 
 class DigitInt :: Type -> Int -> Constraint
-class DigitInt nat int
+class Nat nat <= DigitInt nat int
   | nat -> int, int -> nat
 
 instance DigitInt D0 0 else
