@@ -27,7 +27,7 @@ import Prim.Ordering (LT)
 -- | A sealed bijection between `typelevel` `Nat`s and nonnegative `Int`s.
 
 class NatInt :: Type -> Int -> Constraint
-class (Nat nat, Compare (-1) int LT) <= NatInt nat int
+class NatInt nat int
   | nat -> int, int -> nat
 
 instance
@@ -42,11 +42,7 @@ instance DigitInt digit int => NatInt digit int
 -- | Helper class for single digit representations.
 
 class DigitInt :: Type -> Int -> Constraint
-class
-  ( Nat nat
-  , Compare (-1) int LT
-  , Compare int 10 LT
-  ) <= DigitInt nat int
+class DigitInt nat int
   | nat -> int, int -> nat
 
 instance DigitInt D0 0 else
