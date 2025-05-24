@@ -27,7 +27,9 @@ jobs:
           npm i -g spago@next
 
       - name: Install Spago dependencies
-        run: spago fetch --pure -v
+        run: |
+          spago fetch --pure -v
+          spago install
 
       - name: Build
         run: spago build --strict
