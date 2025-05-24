@@ -12,7 +12,7 @@ import Data.Typelevel.Num.Reps
   , type (:*)
   )
 
-import Data.Typelevel.Num.Sets (class Nat, class Pos)
+import Data.Typelevel.Num.Sets (class Nat)
 
 import Prim.Int
   ( class Add
@@ -29,7 +29,7 @@ class Nat nat <= NatInt nat int
 
 instance
   ( NatInt high high'
-  , Pos high
+  , Nat (high :* ones)
   , DigitInt ones ones'
   , Mul high' 10 prod
   , Add prod ones' sum
